@@ -1,5 +1,4 @@
-import { useState, useCallback } from "react";
-import "./App.css";
+import { useState, useCallback, useRef } from "react";
 
 function App() {
   const [password, setpassword] = useState("");
@@ -8,13 +7,13 @@ function App() {
   const [allowedUpperchar, setUpperchar] = useState(false);
   const [allowedNumber, setNumber] = useState(false);
   const [allowedSymbol, setSymbol] = useState(false);
+  const passwordRef = useRef(null);
 
   const generatePassword = useCallback(() => {
     const lowercahrs = "abcdefghijklmnopqrstuvwxyz";
     const upperchars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const numbers = "0123456789";
     const symbols = "!@#$%&*_";
-
     let finalpassword = "";
     let str = "";
 
@@ -23,7 +22,8 @@ function App() {
     str += allowedNumber ? numbers : "";
     str += allowedSymbol ? symbols : "";
 
-    console.log("length before" + finalpassword);
+    if (str === "") alert("Include* one options to generate the password");
+
     for (let i = 1; i <= length; i++) {
       finalpassword += str.charAt(Math.floor(Math.random() * str.length));
     }
@@ -36,6 +36,12 @@ function App() {
     allowedSymbol,
   ]);
 
+  const copyPasswordToClipboard = () => {
+    passwordRef.current?.select();
+    window.navigator.clipboard.writeText(password);
+    alert("The password has been copied. ");
+  };
+
   return (
     <>
       <div className=" h-screen w-full flex flex-col  justify-center items-center  ">
@@ -44,11 +50,19 @@ function App() {
             Password Generator
           </h1>
           <div>
-            <input
-              value={password}
-              type="text"
-              className="w-96 h-10 text-2xl rounded-sm outline-none p-6"
-            />
+            <div className="relative">
+              <input
+                value={password}
+                type="text"
+                className="w-96 h-10 text-2xl rounded-sm outline-none p-6"
+                readOnly
+                ref={passwordRef}
+              />
+              <i
+                className="ri-file-copy-line absolute right-1 top-2 cursor-pointer text-3xl text-slate-700 hover:text-slate-300"
+                onClick={copyPasswordToClipboard}
+              ></i>
+            </div>
 
             <div className="flex justify-between items-center   mt-6">
               <input
