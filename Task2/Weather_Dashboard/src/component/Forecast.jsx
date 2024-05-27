@@ -1,6 +1,6 @@
-function forecast({ title }) {
+function forecast({ title, keyprop }) {
   return (
-    <div>
+    <div key={keyprop}>
       <div className="flex flex-col mt-3 text-white">
         <p className="border-b-2 font-medium">{title}</p>
         <div className="flex flex-row items-center justify-between">
