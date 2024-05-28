@@ -3,17 +3,10 @@ import InputBox from "./component/inputBox";
 import TimeAndLocation from "./component/TimeAndLocation";
 import TemperatureAndDetails from "./component/TemperatureAndDetails";
 import Forecast from "./component/Forecast.jsx";
-import getWeatherData from "./services/WeatherApi.js";
-import { useEffect } from "react";
+import getFormatedWeatherData from "./services/WeatherApi.js";
 
 function App() {
-  useEffect(() => {
-    const getWeather = async () => {
-      const data = await getWeatherData();
-      console.log(data);
-    };
-    getWeather();
-  }, []);
+  getFormatedWeatherData({ q: "ranchi" });
   return (
     <>
       <div className="mx-auto max-w-screen-md mt-5 py-3 px-32 bg-gradient-to-br from-slate-900 to-slate-700 min-h-12">
