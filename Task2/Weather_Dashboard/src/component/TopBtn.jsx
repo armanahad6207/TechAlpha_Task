@@ -1,4 +1,6 @@
-function TopBtn() {
+/* eslint-disable react/prop-types */
+
+function TopBtn({ setquery }) {
   const cities = [
     { id: 1, title: "London" },
     {
@@ -18,6 +20,7 @@ function TopBtn() {
       title: "Tokyo",
     },
   ];
+  // const [query, setQuery] = useState("ranchi");
   return (
     <div className="flex justify-between  my-2">
       {cities.map((val) => {
