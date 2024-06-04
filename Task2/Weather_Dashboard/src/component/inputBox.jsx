@@ -1,29 +1,31 @@
+/* eslint-disable react/prop-types */
 import "../icons.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationDot,
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
-function InputBox() {
+function InputBox({ setquery }) {
+  const [city, setCity] = useState("");
+  const inputHandler = () => {
+    setquery({ q: city });
+  };
   return (
-    <div className=" flex justify-between items-center my-4">
-      <div className="flex flex-row items-center justify-center space-x-4 w-3/4">
+    <div className=" flex justify-between items-center my-4  ">
+      <div className="flex flex-row items-center justify-center space-x-4 w-3/4 mx-auto">
         <input
+          value={city}
+          onChange={(e) => {
+            setCity(e.currentTarget.value);
+          }}
           type="text"
           placeholder="search city name...."
           className=" w-full rounded-sm px-3 py-2 outline-none text-xl text-slate-600 capitalize "
         />
         <FontAwesomeIcon
+          onClick={inputHandler}
           icon={faMagnifyingGlass}
-          className="text-white text-2xl"
+          className="text-black cursor-pointer rounded-sm hover:bg-white text-2xl px-3 py-2 bg-red-100"
         />
-        <FontAwesomeIcon icon={faLocationDot} className="text-white text-2xl" />
-      </div>
-      <div className="flex text-white items-center  ">
-        <button className="text-2xl font-medium">°C</button>
-        <p className="text-3xl pb-2 pl-1">|</p>
-        <button className="text-2xl font-medium">°F</button>
       </div>
     </div>
   );

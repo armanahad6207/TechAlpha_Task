@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [query, setQuery] = useState({ q: "kolkata" });
-  const [units, setUnits] = useState("metric");
+  // const [units, setUnits] = useState("metric");
   const [weather, setWeather] = useState(null);
 
   const getWeather = async () => {
@@ -19,18 +19,15 @@ function App() {
 
   useEffect(() => {
     getWeather();
-  }, [query, units]);
+  }, [query]);
 
-  useEffect(() => {
-    getWeather();
-  }, []);
   console.log(weather);
 
   return (
     <>
       <div className="mx-auto max-w-screen-md mt-5 py-3 px-32 bg-gradient-to-br from-slate-900 to-slate-700 min-h-12">
-        <TopBtn />
-        <InputBox />
+        <TopBtn setquery={setQuery} />
+        <InputBox setquery={setQuery} />
 
         {weather && (
           <>
